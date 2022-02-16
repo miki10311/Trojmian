@@ -1,0 +1,121 @@
+Mikołaj Zapotoczny,
+Trójmian kwadratowy,
+13.11.2019
+
+
+
+
+
+
+KOD ŹRÓDŁOWY:
+
+/*  kompilacja: Sun C: cc -Xc trojmian.c -lm
+                GNU C: gcc -pedantic -Wall trojmian.c -lm*/
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+  float a,b,c,delta;
+
+  printf("Program oblicza pierwiastki rownania w postaci\n");
+  printf("     2\n");
+  printf("  a x + b x +c =0\n");
+  printf("Podaj wartosc a:"); /* brak litery 'f' w słowie printf */
+  scanf("%f",&a);
+  printf("Podaj wartosc b:");
+  scanf("%f",&b);
+  printf("Podaj wartosc c:");
+  scanf("%f",&c);
+  
+  if (a==0.0) /* był jeden znak równości zamiast dwóch */   /*przypadek rownania liniowego */ 
+    {
+    if (b!=0.0)  /*na wszelki wypadek dopisałem .0 w kilku miejscach, aby nie było problemu z zmiennymi zmiennoprzecinkowymi*/
+      printf("Jest to równanie liniowe o rozwiazaniu x=%f\n",-c/b);    /* brak średnika */
+    else  if (c==0.0)  /* oraz a==b==0.0 */
+      printf("Rozwiazaniem jest dowolne x\n");
+    else              /* a==b==0.0 != c  */
+      printf("Brak rozwiazan\n");
+    }
+  else {   /*przypadek rownania kwadratowego */
+    delta=pow(b,2)-4.0*a*c;
+
+
+
+  if (delta<0.0)
+      printf("Brak rozwiazan rzeczywistych\n");
+    else if (delta>0.0)           /* delta>=0 */
+	    printf("Rozwiazaniem sa x1=%f i x2=%f\n",(-b-sqrt(delta))/(2*a),(-b+sqrt(delta))/(2*a));
+    else
+      printf("Rozwiazaniem sa x1=x2=%f\n",-b/(2*a));
+
+  }
+
+    return 0; /* brak return 0; pomimo tego braku program kompiluje się i działa poprawnie*/
+}
+
+
+
+
+
+
+
+TESTY PROGRAMU:
+
+Dane wejściowe wg ćwiczeń:
+
+  a;b;c - wpisuję z klawiatury
+
+- 0;0;0 test ma na celu sprawdzenie sytuacji kiedy wszystkie wprowadzone zmienne są zerami
+        otrzymałem komunikat: "Rozwiazaniem jest dowolne x" - działanie programu poprawne
+
+- 0;0;3 test ma na celu sprawdzenie sytuacji kiedy 'a' i 'b' zerami, a 'c' jest inną liczbą 
+        otrzymałem komunikat: "Brak rozwiazan" - działanie programu poprawne
+
+- 0;4;3 test ma na celu sprawdzenie sytuacji kiedy 'a' jest zerem, a 'b' i 'c' są innymi liczbami
+        otrzymałem komunikat: "Jest to równanie liniowe o rozwiazaniu x=-0.750000" - działanie programu poprawne
+
+- -2;0;-1 test ma na celu sprawdzenie sytuacji kiedy 'b' jest zerem, a 'a' i 'c' są innymi liczbami oraz a<0 i c<o
+        otrzymałem komunikat: "Brak rozwiazan rzeczywistych" - działanie programu poprawne
+
+- 2;0;1 test ma na celu sprawdzenie sytuacji kiedy 'b' jest zerem, a 'a' i 'c' są innymi liczbami oraz a>0 i c>o
+        otrzymałem komunikat: "Brak rozwiazan rzeczywistych" - działanie programu poprawne
+
+- -2;0;1 test ma na celu sprawdzenie sytuacji kiedy 'b' jest zerem, a 'a' i 'c' są innymi liczbami oraz a<0 i c>o
+        otrzymałem komunikat: "Rozwiazaniem sa x1=0.707107 i x2=-0.707107" - działanie programu poprawne
+
+- 2;0;-1 test ma na celu sprawdzenie sytuacji kiedy 'b' jest zerem, a 'a' i 'c' są innymi liczbami oraz a>0 i c<o
+        otrzymałem komunikat: "Rozwiazaniem sa x1=-0.707107 i x2=0.707107" - działanie programu poprawne
+
+- 2;4;0 test ma na celu sprawdzenie sytuacji kiedy 'c' jest zerem, a 'a' i 'b' są innymi liczbami
+        otrzymałem komunikat: "Rozwiazaniem sa x1=-2.000000 i x2=0.000000" - działanie programu poprawne
+
+- 1;3;2 test ma na celu sprawdzenie sytuacji kiedy 'a', 'b' i 'c' są liczbami różnymi od zera i delta>0
+        otrzymałem komunikat: "Rozwiazaniem sa x1=-2.000000 i x2=-1.000000" - działanie programu poprawne
+
+- 5;1;1 test ma na celu sprawdzenie sytuacji kiedy 'a', 'b' i 'c' są liczbami różnymi od zera i delta<0
+        otrzymałem komunikat: "Brak rozwiazan rzeczywistych" - działanie programu poprawne
+
+- 1;2;1 test ma na celu sprawdzenie sytuacji kiedy 'a', 'b' i 'c' są liczbami różnymi od zera i delta=0
+        otrzymałem komunikat: "Rozwiazaniem sa x1=x2=-1.000000" - działanie programu poprawne
+
+
+Ze względu na zastosowanie zmiennej typu float dokładność obliczeń tego programu jest do szóstego miejsca po przecinku,
+co równierz można zaobserwować gdy popatrzy się na komunikaty z powyższych testów.
+
+
+Podane testy były takie same na kompilatorach: gcc i cc na obu komputerach: diablo i panamint
+
+
+WNIOSKI: 
+Program kompiluje się (przy pomocy gcc i cc) i działa sprawnie na obu komputerach (diablo i panamint),
+więc można stwierdzić, śledząc powyższe testy, że został poprawiony i działa poprawnie dla wszystkich poprawnych danych wejściowych.
+
+
+
+
+
+
+
+
+
